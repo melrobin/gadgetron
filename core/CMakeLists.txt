@@ -7,13 +7,39 @@ add_subdirectory(writers)
 add_subdirectory(parallel)
 add_subdirectory(distributed)
 
+set(core_header_files Channel.h
+        Channel.hpp
+        ChannelIterator.h
+        Message.h
+        Message.hpp
+        MPMCChannel.h
+        Gadget.h
+        Context.h
+        Gadget.h
+        Reader.h
+        Types.h
+        Types.hpp
+        TypeTraits.h
+        Writer.h
+        Node.h
+        PureGadget.h
+        LegacyACE.h
+        PropertyMixin.h
+        GadgetContainerMessage.h
+        ChannelAlgorithms.h
+        variant.hpp
+        MessageID.h
+        )
+
 add_library(gadgetron_core SHARED
+        ${core_header_files}
         Channel.cpp
         Gadget.cpp
         LegacyACE.cpp
         Message.cpp
         Response.cpp
         io/from_string.cpp)
+
 set_target_properties(gadgetron_core PROPERTIES
         VERSION ${GADGETRON_VERSION_STRING}
         SOVERSION ${GADGETRON_SOVERSION})
@@ -40,28 +66,7 @@ install(TARGETS gadgetron_core
 
 
 install(FILES
-        Channel.h
-        Channel.hpp
-        ChannelIterator.h
-        Message.h
-        Message.hpp
-        MPMCChannel.h
-        Gadget.h
-        Context.h
-        Gadget.h
-        Reader.h
-        Types.h
-        Types.hpp
-        TypeTraits.h
-        Writer.h
-        Node.h
-        PureGadget.h
-        LegacyACE.h
-        PropertyMixin.h
-        GadgetContainerMessage.h
-        ChannelAlgorithms.h
-        variant.hpp
-        MessageID.h
+        ${core_header_files}
         DESTINATION ${GADGETRON_INSTALL_INCLUDE_PATH} COMPONENT main)
 
 install(FILES

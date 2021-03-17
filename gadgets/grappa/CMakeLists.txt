@@ -1,10 +1,22 @@
 
+set(RTGRAPPA_Configs 
+        config/grappa.xml
+        config/grappa_cpu.xml
+        config/grappa_float.xml
+        config/grappa_float_cpu.xml
+        config/grappa_unoptimized.xml
+        config/grappa_unoptimized_float.xml)
 
 set(RTGRAPPA_SOURCES
+        ImageAccumulator.h
         ImageAccumulator.cpp
+        WeightsCalculator.h
         WeightsCalculator.cpp
+        Unmixing.h
         Unmixing.cpp
+        AcquisitionFanout.h
         AcquisitionFanout.cpp
+        SliceAccumulator.h
         SliceAccumulator.cpp
         common/AcquisitionBuffer.cpp
         common/AcquisitionBuffer.h
@@ -21,10 +33,9 @@ if (CUDA_FOUND)
             gpu/WeightsCore.h)
 endif()
 
-add_library(gadgetron_grappa SHARED ${RTGRAPPA_SOURCES})
-#set_target_properties(gadgetron_grappa PROPERTIES
-#        VERSION ${GADGETRON_VERSION_STRING}
-#        SOVERSION ${GADGETRON_SOVERSION})
+source_group(config/config ${RTGRAPPA_Configs})
+
+add_library(gadgetron_grappa SHARED ${RTGRAPPA_SOURCES} ${RTGRAPPA_Configs})
 
 target_link_libraries(gadgetron_grappa
         gadgetron_core
@@ -48,15 +59,8 @@ install(TARGETS gadgetron_grappa
 	COMPONENT main
 )
 
-
-
 install(FILES
-        config/grappa.xml
-        config/grappa_cpu.xml
-        config/grappa_float.xml
-        config/grappa_float_cpu.xml
-        config/grappa_unoptimized.xml
-        config/grappa_unoptimized_float.xml
+        ${RTGRAPPA_Configs}
         DESTINATION ${GADGETRON_INSTALL_CONFIG_PATH} COMPONENT main)
 
 set(GADGETRON_BUILD_RPATH "${CMAKE_CURRENT_BINARY_DIR};${GADGETRON_BUILD_RPATH}" PARENT_SCOPE)
