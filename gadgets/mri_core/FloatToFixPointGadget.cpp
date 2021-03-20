@@ -61,7 +61,7 @@ namespace Gadgetron
         GadgetContainerMessage<ISMRMRD::MetaContainer>* m3 = AsContainerMessage<ISMRMRD::MetaContainer>(m2->cont());
         
 
-        GDEBUG("Float to shorts norm: %f \n", nrm2(*m2->getObjectPtr()));
+        //GDEBUG("Float to shorts norm: %f \n", nrm2(*m2->getObjectPtr()));
 
         switch (m1->getObjectPtr()->image_type)
         {
